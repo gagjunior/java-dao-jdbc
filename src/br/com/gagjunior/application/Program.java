@@ -1,7 +1,10 @@
 package br.com.gagjunior.application;
 
+import java.util.List;
+
 import br.com.gagjunior.model.dao.DaoFactory;
 import br.com.gagjunior.model.dao.SellerDao;
+import br.com.gagjunior.model.entities.Department;
 import br.com.gagjunior.model.entities.Seller;
 
 public class Program {
@@ -11,9 +14,15 @@ public class Program {
 		SellerDao sellerDao = DaoFactory.createSellerDao();
 		Seller seller = sellerDao.findById(1);
 
-		System.out.println("TESTE 1 >>>>> findById");
+		System.out.println("\nTESTE 1 >>>>> Seller: findById");
 		System.out.println(seller);
 
+		System.out.println("\nTESTE 2 >>>>> Seller: findByDepartment");
+		Department dep = new Department(1, null);
+		List<Seller> sellerList = sellerDao.findByDepartment(dep);
+		
+		sellerList.forEach(x -> System.out.println(x));
+		
 	}
 
 }
