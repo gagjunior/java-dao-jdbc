@@ -43,23 +43,22 @@ public class SellerDaoJDBC implements SellerDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement(
-					"select s.*, d.name as dep_name "
-					+ "from seller s inner join department d on s.department_id = d.id "
-					+ "where s.id = ?");
+			st = conn.prepareStatement("select s.*, d.Name as DepName "
+				+ "from seller s inner join department d "
+				+ "on s.DepartmentId = d.Id where s.Id = ?");
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
 				Department dep = new Department();	
-				dep.setId(rs.getInt("department_id"));
-				dep.setName(rs.getString("dep_name"));
+				dep.setId(rs.getInt("DepartmentId"));
+				dep.setName(rs.getString("DepName"));
 				
 				Seller seller = new Seller();
-				seller.setId(rs.getInt("id"));
-				seller.setName(rs.getString("name"));
-				seller.setEmail(rs.getString("email"));
-				seller.setBirthDate(rs.getDate("birth_date").toLocalDate());
-				seller.setBaseSalary(rs.getDouble("base_salary"));
+				seller.setId(rs.getInt("Id"));
+				seller.setName(rs.getString("Name"));
+				seller.setEmail(rs.getString("Email"));
+				seller.setBirthDate(rs.getDate("BirthDate").toLocalDate());
+				seller.setBaseSalary(rs.getDouble("BaseSalary"));
 				seller.setDepartment(dep);
 				return seller;
 			}
